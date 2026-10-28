@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Código da Prosperidade | Diagnóstico Financeiro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy:   #0a0f1e;
+            --navy2:  #0f1829;
+            --navy3:  #162035;
+            --gold:   #c9a84c;
+            --gold2:  #e8c96a;
+            --gold3:  #f5e0a0;
+            --teal:   #0ecbad;
+            --teal2:  #07a98e;
+            --white:  #f8fafc;
+            --muted:  #8898b4;
+            --border: rgba(201,168,76,0.18);
+            --card:   rgba(15,24,41,0.95);
+            --red:    #ff4d6a;
+            --green:  #0ecbad;
+        }
+
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: var(--navy) !important;
+            width: 100% !important;
+            font-family: 'Inter', sans-serif;
+            color: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        #super-container {
+            width: 100%;
+            min-height: 100vh;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,168,76,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 80% 80%, rgba(14,203,173,0.06) 0%, transparent 55%),
+                var(--navy);
+        }
+
+        /* ─── HEADER ─── */
+        .site-header {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 18px 32px !important;
+            border-bottom: 1px solid var(--border) !important;
+            background: #0a0f1e !important;
+            position: relative !important;
+            z-index: 100 !important;
+            width: 100% !important;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-logo img {
+            height: 100px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .header-badge {
+            position: absolute;
+            right: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--teal);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: rgba(14,203,173,0.1);
+            border: 1px solid rgba(14,203,173,0.25);
+            padding: 5px 12px;
+            border-radius: 100px;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 560px) {
+            .header-badge { display: none; }
+        }
+
+        /* ─── MAIN ─── */
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 50px 16px 80px;
+            min-height: calc(100vh - 74px);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 620px;
+        }
+
+        /* ─── START SCREEN ─── */
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+
+        .eyebrow-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.7); }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 5vw, 40px);
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .hero-title .accent { color: var(--gold); }
+
+        .hero-sub {
+            font-size: 16px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .hero-sub strong { color: var(--white); }
+
+        .alert-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,77,106,0.08);
+            border: 1px solid rgba(255,77,106,0.3);
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-bottom: 32px;
+        }
+
+        .alert-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .alert-text {
+            font-size: 13px;
+            color: #ffb3be;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .alert-text strong { color: #ff4d6a; }
+
+        /* ─── FORM ─── */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            opacity: 0.5;
+        }
+
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 16px 16px 16px 46px;
+            background: var(--navy3);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            font-size: 15px;
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input::placeholder { color: var(--muted); }
+
+        input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+        }
+
+        .btn-cta {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--gold), #b8962e);
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--navy);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.15s, box-shadow 0.15s;
+            box-shadow: 0 4px 24px rgba(201,168,76,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-cta::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+            pointer-events: none;
+        }
+
+        .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,0.4); }
+        .btn-cta:active { transform: translateY(0); }
+
+        .privacy-note {
+            text-align: center;
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 12px;
+        }
+
+        /* ─── STATS GRID ─── */
+        .divider-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 36px 0 28px;
+        }
+
+        .divider-line { flex: 1; height: 1px; background: var(--border); }
+
+        .divider-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-card {
+            background: var(--navy3);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-desc {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .stat-source {
+            grid-column: 1 / -1;
+            font-size: 10px;
+            color: rgba(136,152,180,0.5);
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        /* ─── QUIZ SCREEN ─── */
+        .quiz-header {
+            margin-bottom: 28px;
+        }
+
+        .progress-track {
+            height: 4px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold2), var(--teal));
+            border-radius: 4px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%;
+        }
+
+        .q-card {
+            background: var(--navy3);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 28px 24px;
+        }
+
+        .q-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.4;
+            margin-bottom: 24px;
+        }
+
+        /* ─── OPTION BUTTONS ─── */
+        .opt-btn {
+            width: 100%;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.03);
+            border: 1.5px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-align: left;
+            transition: all 0.18s;
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .opt-btn:hover {
+            border-color: rgba(201,168,76,0.4);
+            background: rgba(201,168,76,0.05);
+            transform: translateX(3px);
+        }
+
+        .opt-btn.selected {
+            border-color: var(--gold);
+            background: rgba(201,168,76,0.1);
+        }
+
+        .opt-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.2);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.18s;
+        }
+
+        .opt-indicator.square { border-radius: 6px; }
+
+        .opt-btn.selected .opt-indicator {
+            background: var(--gold);
+            border-color: var(--gold);
+            position: relative;
+        }
+
+        .opt-btn.selected .opt-indicator::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 1px;
+            width: 5px;
+            height: 9px;
+            border: 2px solid var(--navy);
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg);
+        }
+
+        .opt-text { flex: 1; line-height: 1.4; }
+
+        .btn-continue {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--gold), #b8962e);
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--navy);
+            cursor: pointer;
+            margin-top: 8px;
+            transition: transform 0.15s, box-shadow 0.15s;
+            box-shadow: 0 4px 20px rgba(201,168,76,0.25);
+        }
+
+        .btn-continue:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,168,76,0.35); }
+
+        input.q-input {
+            width: 100%;
+            padding: 16px;
+            background: rgba(255,255,255,0.04);
+            border: 1.5px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            font-size: 15px;
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            margin-bottom: 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input.q-input::placeholder { color: var(--muted); }
+        input.q-input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+        }
+
+        .btn-back {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 12px;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            font-family: 'Inter', sans-serif;
+            transition: color 0.15s;
+        }
+
+        .btn-back:hover { color: var(--white); }
+
+        .secure-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 20px;
+            font-size: 11px;
+            color: rgba(136,152,180,0.6);
+        }
+
+        /* ─── RESULT SCREEN ─── */
+        .result-wrapper { text-align: center; padding: 10px 0; }
+
+        .result-icon {
+            width: 72px; height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(14,203,173,0.1));
+            border: 1.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 24px;
+        }
+
+        .result-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .result-sub {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .result-card {
+            background: rgba(14,203,173,0.06);
+            border: 1px solid rgba(14,203,173,0.2);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 28px;
+            text-align: left;
+        }
+
+        .result-card-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: 8px;
+        }
+
+        .result-card-text {
+            font-size: 14px;
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        .btn-cta-result {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--gold), #b8962e);
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--navy);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 28px rgba(201,168,76,0.35);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .btn-cta-result:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(201,168,76,0.45); }
+
+        /* ─── FOOTER ─── */
+        .site-footer {
+            padding: 36px 20px !important;
+            border-top: 1px solid var(--border) !important;
+            text-align: center !important;
+            background: #0a0f1e !important;
+            display: block !important;
+            width: 100% !important;
+            clear: both !important;
+        }
+
+        .footer-brand {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 6px;
+        }
+
+        .footer-tagline {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        .footer-copy {
+            font-size: 10px;
+            color: rgba(136,152,180,0.4);
+        }
+
+        /* ─── ANIMATIONS ─── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in { animation: fadeUp 0.4s ease-out both; }
+    </style>
+</head>
+<body>
+
+<div id="super-container">
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="header-logo">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjkyjOiLlcAynJGh6iIEnefhbgrzxErRGHC5Y42up6ymKWcSsOuB_0otYDz0HtisKmX0NfJE2D8wPk2C9DC8b9lxHU8_9Am5wbzN7tinV6R_62tGjfLkuzKWQr9YkoYviO6kHYNuSot6Vf56_bSLHz2XJjZlsyDsMIAw209imZ65BkjXEuCqTFnuLoQy6I/s320/1001141836.png" alt="Código da Prosperidade">
+        </div>
+        <span class="header-badge">Diagnostico Oficial</span>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main-content">
+        <div class="container">
+
+            <!-- ── START SCREEN ── -->
+            <div id="start-screen" class="fade-in">
+
+                <div class="eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    Diagnostico Financeiro Gratuito
+                </div>
+
+                <h1 class="hero-title">
+                    Seu dinheiro some antes<br>do <span class="accent">mês acabar?</span>
+                </h1>
+
+                <p class="hero-sub">
+                    Descubra seu <strong>Índice de Saúde Financeira</strong> e receba um diagnóstico personalizado pelo Método do Código da Prosperidade — em menos de 3 minutos.
+                </p>
+
+                <div class="alert-bar">
+                    <span class="alert-icon">⚠️</span>
+                    <p class="alert-text">
+                        <strong>53% dos trabalhadores brasileiros não conseguem fechar o mês</strong> com dinheiro suficiente para cobrir as despesas básicas. Descubra em qual grupo você está e o que fazer a seguir.
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrap">
+                        <span class="input-icon">👤</span>
+                        <input type="text" id="userName" placeholder="Seu nome completo">
+                    </div>
+                    <div class="input-wrap">
+                        <span class="input-icon">✉️</span>
+                        <input type="email" id="userEmail" placeholder="Seu melhor e-mail">
+                    </div>
+                </div>
+
+                <button class="btn-cta" onclick="startQuiz()">
+                    Gerar Meu Diagnostico Gratuito
+                </button>
+
+                <p class="privacy-note">Seus dados sao protegidos pela LGPD. Zero spam.</p>
+
+                <div class="divider-section">
+                    <div class="divider-line"></div>
+                    <span class="divider-label">Por que fazer este diagnóstico?</span>
+                    <div class="divider-line"></div>
+                </div>
+
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="stat-num">53%</div>
+                        <div class="stat-desc">Não fecham o mês com dinheiro suficiente para as despesas básicas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num">56%</div>
+                        <div class="stat-desc">Não têm nenhuma reserva de emergência para imprevistos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num">7/10</div>
+                        <div class="stat-desc">Consideram a própria vida financeira desorganizada</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num">51%</div>
+                        <div class="stat-desc">Relatam forte estresse financeiro no dia a dia</div>
+                    </div>
+                    <div class="stat-source">Fonte: pesquisa sobre panorama financeiro e estresse financeiro dos trabalhadores brasileiros, 2026</div>
+                </div>
+            </div>
+
+            <!-- ── QUIZ SCREEN ── -->
+            <div id="quiz-content" style="display:none;">
+                <div class="quiz-header">
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+
+                <div class="q-card fade-in" id="question-area"></div>
+
+                <div class="secure-note">
+                    Diagnostico confidencial · Protegido pela LGPD
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-brand">Método O Código da Prosperidade</div>
+        <div class="footer-tagline">A ciência da organização que gera abundância real.</div>
+        <div class="footer-copy">© 2026 — Todos os direitos reservados.</div>
+    </footer>
+
+</div>
+
+<script>
+let current = 0;
+let userData = {};
+let answers = [];
+let score = 0;
+let maxScore = 0;
+let leaks = [];
+let impulseValue = null;
+
+const questions = [
+    {type:"single", q:"Qual é a sua principal fonte de renda hoje?", options: ["Sou CLT / Funcionário Público", "Sou Autônomo / Profissional Liberal", "Sou Empresário / Empreendedor"]},
+    {type:"single", q:"Como você descreveria sua vida financeira hoje?", options:["Tranquila e organizada","Sob controle, mas sem sobra","Desorganizada, preciso mudar","Totalmente fora de controle"], scores:[0,1,2,3]},
+    {type:"single", q:"Qual sua faixa salarial atualmente?", options:["R$ 1.500 – R$ 3.000","R$ 3.500 – R$ 5.500","R$ 5.500 – R$ 8.000","R$ 8.500 – R$ 10.000+"]},
+    {type:"single", q:"No fim do mês, o que normalmente acontece com seu saldo?", options:["Sobra dinheiro para investir","Fica no zero, empata","Falta, e preciso usar cartão ou empréstimo para fechar o mês","Nem tenho coragem de olhar o extrato"], scores:[0,1,2,3]},
+    {type:"single", q:"Você sente que possui controle real sobre seus gastos?", options:["Sim, registro tudo com disciplina","Parcialmente, sei o básico","Não, gasto por impulso","Me sinto completamente perdido(a)"], scores:[0,1,2,3]},
+    {type:"multi", q:"O que mais te impede de prosperar hoje? (pode marcar vários)", options:["Falta de um método testado","Falta de disciplina pessoal","Renda muito baixa","Dívidas acumuladas"]},
+    {type:"multi", q:"Você tem pendências ou dívidas em alguma dessas áreas?", options:["Cartão de crédito","Empréstimos / Cheque Especial","Financiamentos (casa/carro)","Contas básicas (luz/água)","Não tenho dívidas no momento"]},
+    {type:"multi", key:"ralos", q:"O que mais faz seu dinheiro sumir sem você perceber? (marque quantos fizerem sentido)", options:["Compras por impulso (loja ou site)","Delivery e lanches frequentes","Assinaturas e serviços que não uso mais","Compras on-line não planejadas","Juros de dívidas em atraso","O salário simplesmente não é suficiente"]},
+    {type:"single", key:"impulso", q:"Somando esses gastos, quanto você acha que 'escorre' do seu bolso por mês sem necessidade?", options:["Menos de R$ 50","Entre R$ 50 e R$ 150","Entre R$ 150 e R$ 300","Mais de R$ 300","Não sei dizer ao certo"], values:[25,100,225,350,0], scores:[0,1,2,3,1]},
+    {type:"single", q:"Se surgisse um imprevisto hoje (carro quebrado, conta médica), você teria uma reserva para cobrir?", options:["Sim, tenho reserva para 6 meses ou mais","Sim, mas cobre menos de 3 meses","Não tenho nenhuma reserva de emergência"], scores:[0,1,3]},
+    {type:"single", q:"Preocupações com contas ou uma emergência tiram seu sono ou geram ansiedade no dia a dia?", options:["Constantemente — é uma angústia diária","Às vezes, quando as contas apertam","Raramente","Nunca senti isso"], scores:[3,2,1,0]},
+    {type:"input", q:"Se nada mudar hoje, como você imagina sua vida financeira daqui a 1 ano?"},
+    {type:"input", q:"Se você pudesse transformar apenas UM aspecto da sua vida financeira agora, qual seria?"},
+    {type:"single", q:"Qual valor de respiro mensal traria paz ao seu sono?", options:["Até R$ 500 — para começar a organizar","Entre R$ 1.000 e R$ 1.500 — para ter segurança","R$ 2.000 ou mais — para acelerar a liberdade","Ainda não consigo visualizar uma sobra"]},
+    {type:"multi", q:"Ao alcançar sua organização financeira, o que seria mais valioso? (pode marcar vários)", options:["Dormir tranquilo sem pensar em boletos","Ter tempo de qualidade com quem eu amo","Liberdade para fazer o que quiser","Poder investir no futuro da minha família"]},
+    {type:"single", q:"Você acredita que um método real de organização é a chave que falta para sua prosperidade?", options:["Sim, estou pronto(a) para essa mudança","Pode ajudar, mas ainda tenho dúvidas","Acho que o problema é só a renda mesmo"], scores:[0,1,2]},
+    {type:"single", q:"Você estaria disposto(a) a seguir um método de 15 minutos por dia para mudar isso?", options:["Sim, estou decidido(a) — quero começar agora!","Talvez, se for simples e prático","Não, não tenho interesse no momento"], scores:[0,1,2]}
+];
+
+questions.forEach(q => { if (q.scores) maxScore += Math.max(...q.scores); });
+
+function startQuiz() {
+    userData.name = document.getElementById("userName").value.trim();
+    userData.email = document.getElementById("userEmail").value.trim();
+    if (!userData.name || !userData.email) { alert("Por favor, preencha seu nome e e-mail para continuar."); return; }
+    document.getElementById("start-screen").style.display = "none";
+    document.getElementById("quiz-content").style.display = "block";
+    render();
+}
+
+function render() {
+    const q = questions[current];
+    const pct = Math.round(((current + 1) / questions.length) * 100);
+
+    document.getElementById("progress-fill").style.width = pct + "%";
+
+    let html = `<div class="q-title">${q.q}</div>`;
+
+    if (q.type === "single") {
+        q.options.forEach((opt, i) => {
+            html += `
+            <button class="opt-btn" onclick="selectSingle(this, '${opt.replace(/'/g, "\\'")}', ${i})">
+                <span class="opt-indicator"></span>
+                <span class="opt-text">${opt}</span>
+            </button>`;
+        });
+
+    } else if (q.type === "multi") {
+        q.options.forEach(opt => {
+            html += `
+            <button class="opt-btn m-opt" onclick="toggleMulti(this)">
+                <span class="opt-indicator square"></span>
+                <span class="opt-text">${opt}</span>
+            </button>`;
+        });
+        html += `<button class="btn-continue" onclick="nextMulti()">Continuar →</button>`;
+
+    } else if (q.type === "input") {
+        html += `
+        <input class="q-input" type="text" id="i-ans" placeholder="Escreva sua resposta aqui...">
+        <button class="btn-continue" onclick="next(document.getElementById('i-ans').value)">Continuar →</button>`;
+    }
+
+    if (current > 0) {
+        html += `<button class="btn-back" onclick="back()">← Voltar</button>`;
+    }
+
+    const area = document.getElementById("question-area");
+    area.innerHTML = html;
+    area.classList.remove("fade-in");
+    void area.offsetWidth;
+    area.classList.add("fade-in");
+}
+
+function selectSingle(btn, val, idx) {
+    document.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    const q = questions[current];
+    if (q.scores) score += q.scores[idx];
+    if (q.key === "impulso" && q.values) impulseValue = q.values[idx];
+    setTimeout(() => next(val), 250);
+}
+
+function toggleMulti(btn) {
+    btn.classList.toggle('selected');
+}
+
+function back() { current--; answers.pop(); render(); }
+
+function next(val) {
+    if (!val || (typeof val === 'string' && val.trim() === '')) {
+        alert("Por favor, responda antes de continuar.");
+        return;
+    }
+    answers.push(val);
+    current++;
+    if (current >= questions.length) finish();
+    else render();
+}
+
+function nextMulti() {
+    let sel = [];
+    document.querySelectorAll('.m-opt.selected').forEach(s => sel.push(s.querySelector('.opt-text').textContent.trim()));
+    if (sel.length === 0) { alert("Selecione ao menos uma opção."); return; }
+    if (questions[current].key === "ralos") leaks = sel;
+    next(sel);
+}
+
+function buildResult() {
+    const ratio = maxScore > 0 ? score / maxScore : 0;
+
+    // pega o ralo mais acionável (evita usar "salário insuficiente" como o destaque, se houver outra opção)
+    const mainLeak = leaks.find(l => l !== "O salário simplesmente não é suficiente") || leaks[0] || null;
+
+    let leakLine = "";
+    if (mainLeak && impulseValue) {
+        const annual = impulseValue * 12;
+        leakLine = `Um dos seus principais ralos hoje é <strong>${mainLeak.toLowerCase()}</strong>. Só isso, sem nenhuma outra mudança, pode representar cerca de <strong>R$ ${annual.toLocaleString('pt-BR')} por ano</strong> saindo do seu bolso sem rumo.`;
+    } else if (mainLeak) {
+        leakLine = `Um dos seus principais ralos hoje é <strong>${mainLeak.toLowerCase()}</strong> — um ponto simples de corrigir com o direcionamento certo.`;
+    }
+
+    if (ratio >= 0.65) {
+        return {
+            title: `Diagnóstico Concluído, ${userData.name}!`,
+            sub: "Suas respostas mostram um nível alto de pressão financeira agora. É sério, mas tem solução — e o primeiro passo é mais simples do que parece.",
+            cardLabel: "Seu ponto de atenção",
+            cardText: `${leakLine} O Método <strong>O Código da Prosperidade</strong> foi desenvolvido exatamente para tirar você desse ciclo com prioridade e direção — não é sobre ganhar mais, é sobre organizar o que já entra.`
+        };
+    } else if (ratio >= 0.35) {
+        return {
+            title: `Diagnóstico Concluído, ${userData.name}!`,
+            sub: "Você já sente o peso da desorganização no dia a dia, mas está a poucos ajustes de virar esse jogo.",
+            cardLabel: "Sua próxima etapa",
+            cardText: `${leakLine} O Método <strong>O Código da Prosperidade</strong> foi desenvolvido exatamente para o seu perfil: alguém que já sabe que precisa mudar, só falta o direcionamento certo.`
+        };
+    } else {
+        return {
+            title: `Diagnóstico Concluído, ${userData.name}!`,
+            sub: "Você já está mais organizado(a) que a maioria — e isso é ótimo. Falta só destravar o próximo nível com hábito e prioridade.",
+            cardLabel: "Sua próxima etapa",
+            cardText: `${leakLine} O Método <strong>O Código da Prosperidade</strong> vai te ajudar a transformar essa organização em resultado real: mais sobra, mais direção, mais liberdade.`
+        };
+    }
+}
+
+function finish() {
+    const result = buildResult();
+    document.getElementById("quiz-content").innerHTML = `
+        <div class="q-card fade-in result-wrapper">
+            <div class="result-icon">+</div>
+            <div class="result-title">${result.title}</div>
+            <p class="result-sub">${result.sub}</p>
+            <div class="result-card">
+                <div class="result-card-label">${result.cardLabel}</div>
+                <div class="result-card-text">${result.cardText}</div>
+            </div>
+            <button class="btn-cta-result" onclick="window.location.href='https://www.6cxocodigodaprosperidade.com.br/2026/04/o-codigo-da-prosperidade.html'">
+                Ver a Solucao Para o Meu Perfil
+            </button>
+        </div>
+        <div class="secure-note" style="margin-top:20px;">Diagnostico confidencial · Protegido pela LGPD</div>
+    `;
+    document.getElementById("progress-fill").style.width = "100%";
+}
+</script>
+</body>
+</html>
